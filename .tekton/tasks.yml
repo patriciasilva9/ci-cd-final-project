@@ -13,8 +13,8 @@ spec:
           value: $(workspaces.source.path)
       workingDir: $(workspaces.source.path)
       securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
+        runAsUser: 1000
+        privileged: false
       script: |
         #!/usr/bin/env sh
         set -eu
@@ -48,6 +48,9 @@ spec:
     - name: nosetests
       image: python:3.9-slim
       workingDir: $(workspaces.source.path)
+      securityContext:
+        runAsUser: 1000
+        privileged: false
       script: |
         #!/bin/bash
         set -e
